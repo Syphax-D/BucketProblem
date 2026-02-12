@@ -22,10 +22,9 @@ public class BucketSearchEngine {
         // [Fermé <- 0]
         Set<State> ferme = utiliserFerme ? new HashSet<>() : null;
 
-        final int MAX_ITER = 10_000_000;
 
         // TantQue Ouvert != 0 Et tête(Ouvert) n'est pas un but
-        while (!ouvert.estVide() && !ouvert.tete().estBut(instance.getBut()) && iterations < MAX_ITER) {
+        while (!ouvert.estVide() && !ouvert.tete().estBut(instance.getBut())) {
             iterations++;
 
             // e <- tête(Ouvert)
@@ -55,7 +54,7 @@ public class BucketSearchEngine {
         }
 
         // Si Ouvert = 0 Alors il n'existe pas de but accessible
-        if (ouvert.estVide() || iterations >= MAX_ITER) {
+        if (ouvert.estVide()) {
             System.out.println("ÉCHEC : but inaccessible après " + iterations + " itérations");
             System.out.println("Noeuds explorés : " + noeudsExplores);
             System.out.println("Taille Ouvert   : " + ouvert.taille());
@@ -64,11 +63,11 @@ public class BucketSearchEngine {
 
         // Sinon l'élément tête(Ouvert) est un but
         State but = ouvert.tete();
-        System.out.println("SUCCÈS : but atteint !");
-        System.out.println("Itérations      : " + iterations);
-        System.out.println("Noeuds explorés : " + noeudsExplores);
+        System.out.println("SUCCES");
+        System.out.println("Iterations      : " + iterations);
+        System.out.println("Noeuds explores : " + noeudsExplores);
         System.out.println("Taille Ouvert   : " + ouvert.taille());
-        System.out.println("État final      : " + but);
+        System.out.println("Etat final      : " + but);
 
         // Afficher le chemin solution
         System.out.println("\nChemin solution :");

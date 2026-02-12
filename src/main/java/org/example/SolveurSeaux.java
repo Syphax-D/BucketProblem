@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 public class SolveurSeaux {
 
-    private static final String CHEMIN_INSTANCE = "C:\\Users\\Syssou\\IdeaProjects\\projetias\\src\\main\\java\\org\\example\\instances\\instances\\3_7_13_19_23_29_a.buck";
+    private static final String CHEMIN_INSTANCE = "src/main/java/org/example/instances/instances/3_7_13_19_23_29_a.buck";
 
     public static void main(String[] args) {
         System.out.println(" SOLVEUR AUTONOME - Probleme des seaux");
