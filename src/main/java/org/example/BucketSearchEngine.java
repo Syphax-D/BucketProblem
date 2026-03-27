@@ -11,7 +11,13 @@ public class BucketSearchEngine {
         this.instance = instance;
     }
 
+    // Surcharge sans profondeurMax (BFS et Best-First)
     public State rechercher(Open<State> ouvert, boolean utiliserFerme) {
+        return rechercher(ouvert, utiliserFerme, Integer.MAX_VALUE);
+    }
+
+    // Version complète avec profondeurMax (utile pour DFS)
+    public State rechercher(Open<State> ouvert, boolean utiliserFerme, int profondeurMax) {
         this.iterations = 0;
         this.noeudsExplores = 0;
 
@@ -19,11 +25,10 @@ public class BucketSearchEngine {
         State einit = new State(instance.getN(), instance.getBut());
         ouvert.inserer(einit);
 
-        // [Fermé <- 0]
+        // [Fermé <- ∅]
         Set<State> ferme = utiliserFerme ? new HashSet<>() : null;
 
-
-        // TantQue Ouvert != 0 Et tête(Ouvert) n'est pas un but
+        // TantQue Ouvert != ∅ Et tête(Ouvert) n'est pas un but
         while (!ouvert.estVide() && !ouvert.tete().estBut(instance.getBut())) {
             iterations++;
 
@@ -34,26 +39,27 @@ public class BucketSearchEngine {
             ouvert.extraireTete();
             noeudsExplores++;
 
-            // [Fermé <- Fermé ou {e}]
+            // [Fermé <- Fermé ∪ {e}]
             if (utiliserFerme) {
                 ferme.add(e);
             }
 
-            // générer tous les voisins possibles de e
+            // Générer tous les voisins possibles de e
             List<State> voisins = e.genererVoisins(instance.getCapacites());
 
-            // ... et les insérer dans Ouvert s'ils ne sont pas déjà dans Ouvert [ni dans Fermé]
+            // Insérer dans Ouvert s'ils ne sont pas déjà dans Ouvert [ni dans Fermé]
+            // et s'ils respectent la profondeur maximale
             for (State voisin : voisins) {
                 boolean dansOuvert = ouvert.contient(voisin);
                 boolean dansFerme = (utiliserFerme && ferme != null && ferme.contains(voisin));
 
-                if (!dansOuvert && !dansFerme) {
+                if (!dansOuvert && !dansFerme && voisin.getProfondeur() <= profondeurMax) {
                     ouvert.inserer(voisin);
                 }
             }
         }
 
-        // Si Ouvert = 0 Alors il n'existe pas de but accessible
+        // Si Ouvert = ∅ Alors il n'existe pas de but accessible
         if (ouvert.estVide()) {
             System.out.println("ÉCHEC : but inaccessible après " + iterations + " itérations");
             System.out.println("Noeuds explorés : " + noeudsExplores);
