@@ -17,10 +17,10 @@ Le programme affiche pour chaque stratégie le chemin trouvé, le nombre d'étap
 
 Structure du projet
 
-State : représente une configuration des seaux à un instant donné
-BucketInstance : lit et charge le fichier .buck
-BucketSearchEngine : moteur de recherche générique, indépendant de la stratégie
-Open / OpenFile / OpenPile / OpenListe : implémentations des trois stratégies de parcours
-SolveurSeaux : point d'entrée du programme
+- State : représente une configuration des seaux à un instant donné
+- BucketInstance : lit et charge le fichier .buck
+- BucketSearchEngine : moteur de recherche générique, indépendant de la stratégie
+- Open / OpenFile / OpenPile / OpenListe : implémentations des trois stratégies de parcours
+- SolveurSeaux : point d'entrée du programme
 
 
