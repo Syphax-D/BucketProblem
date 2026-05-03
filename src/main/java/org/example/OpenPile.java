@@ -14,7 +14,7 @@ public class OpenPile<T> implements Open<T> {
     }
 
     @Override public T extraireTete() {
-        T etat = pile.poll();
+        T etat = pile.isEmpty() ? null : pile.pop(); // ← pop() pour vrai LIFO
         if (etat != null) presence.remove(etat);
         return etat;
     }

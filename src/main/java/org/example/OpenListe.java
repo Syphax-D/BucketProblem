@@ -2,9 +2,14 @@ package org.example;
 
 import java.util.*;
 
-public class OpenListe<T extends Comparable<T>> implements Open<T> {
-    private final PriorityQueue<T> file = new PriorityQueue<>();
+public class OpenListe<T> implements Open<T> {
+    private final PriorityQueue<T> file;
     private final Set<T> presence = new HashSet<>();
+
+    // Constructeur avec comparateur (pour les heuristiques)
+    public OpenListe(Comparator<T> comparateur) {
+        this.file = new PriorityQueue<>(comparateur);
+    }
 
     @Override public void inserer(T etat) {
         if (!presence.contains(etat)) {
